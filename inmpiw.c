@@ -82,14 +82,40 @@ int INMPIW_Comm_size( INMPIW_Comm comm_w, int *nrank )
 }
 
 
+int INMPIW_Comm_rank( INMPIW_Comm comm_w, int *rank )
+{
+   int ier;
+   MPI_Comm comm;
+
+   memcpy( &comm, &comm_w, sizeof(MPI_Comm) );
+
+   ier = MPI_Comm_rank( comm, rank );
+
+   return( ier );
+}
+
+
 int INMPIW_Comm_dup( INMPIW_Comm comi_w, INMPIW_Comm *commo_w )
 {
    int ier;
    MPI_Comm comm;
 
-   memcpy( &comi_w, &comm, sizeof( MPI_Comm ) );
+   memcpy( &comm, &comi_w, sizeof( MPI_Comm ) );
 
    ier = MPI_Comm_dup( comm, (MPI_Comm *) commo_w );
+
+   return( ier );
+}
+
+
+int INMPIW_Comm_split( INMPIW_Comm comi_w, int color, int key,
+                       INMPIW_Comm *como_w )
+{
+   int ier;
+   MPI_Comm comm;
+
+   memcpy( &comm, &comi_w, sizeof( MPI_Comm ) );
+   ier = MPI_Comm_split( comm, color, key, (MPI_Comm *) como_w );
 
    return( ier );
 }
@@ -100,19 +126,6 @@ int INMPIW_Comm_free( INMPIW_Comm *comm_w )
    int ier;
 
    ier = MPI_Comm_free( (MPI_Comm *) comm_w );
-
-   return( ier );
-}
-
-
-int INMPIW_Comm_rank( INMPIW_Comm comm_w, int *rank )
-{
-   int ier;
-   MPI_Comm comm;
-
-   memcpy( &comm, &comm_w, sizeof(MPI_Comm) );
-
-   ier = MPI_Comm_rank( comm, rank );
 
    return( ier );
 }
@@ -136,7 +149,7 @@ int INMPIW_Get_processor_name( char hname[], int *hlen )
 
 int main( int argc, char *argv[] )
 {
-   INMPIW_Comm comm,com2;
+   INMPIW_Comm comm,com2,com3;
    INMPIW_Info info;
    int rank,nrank;
    char hname[256];
@@ -157,8 +170,10 @@ int main( int argc, char *argv[] )
    INMPIW_Comm_rank( com2, &rank );
    if( rank == 0 ) printf("Rank %d size %d \n",rank,nrank);
    if( rank == 0 ) printf("Hostname: \"%s\" \n", hname);
-
    INMPIW_Comm_free( &com2 );
+
+   INMPIW_Comm_split( comm, 1, 2, &com3 );
+   INMPIW_Comm_free( &com3 );
 
    INMPIW_Finalize();
 
