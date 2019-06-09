@@ -137,6 +137,8 @@ int write_header_file( char filename[] )
    fprintf(file,"typedef struct { char mem[%d]; } INMPIW_Errhandler; \n",
               (int) inmpiw_mpi_errhandler );
 
+   fprintf(file,"\n\n");
+
 
    fprintf( fp  , "#define    INMPIW_STATUS_IGNORE        %s\n",
                    inmpiw_mpi_status_ignore );
