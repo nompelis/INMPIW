@@ -4,6 +4,8 @@ COPTS = -fPIC -Wall -O0
 all:
 	$(MPICC) $(COPTS) -c inmpiw.c
 	$(MPICC)             inmpiw.o
+
+q:
 	$(MPICC) $(COPTS) -D  _OPENMPI_ query.c -o inmpiw_query
 
 clean:
