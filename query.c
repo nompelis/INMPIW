@@ -21,6 +21,7 @@
 // variables to store the sizes (in bytes) of regular types
 //
 
+size_t inmpiw_mpi_comm;
 size_t inmpiw_mpi_datatype;
 size_t inmpiw_mpi_status;
 size_t inmpiw_mpi_request;
@@ -91,6 +92,11 @@ int write_header_file( char filename[] )
    fprintf(file," */\n");
 
    fprintf(file,"\n\n");
+
+   fprintf(fp  ,"typedef struct { char mem[%d]; } INMPIW_Comm; \n",
+              (int) inmpiw_mpi_comm );
+   fprintf(file,"typedef struct { char mem[%d]; } INMPIW_Comm; \n",
+              (int) inmpiw_mpi_comm );
 
    fprintf(fp  ,"typedef struct { char mem[%d]; } INMPIW_Datatype; \n",
               (int) inmpiw_mpi_datatype );
@@ -175,6 +181,9 @@ int main( int argc, char *argv[] )
    // items that occupy memory and require to have their size queried
    //
    fprintf(fp," Queried sizes of the MPI implementation typdefs :\n");
+
+   inmpiw_mpi_comm = sizeof( MPI_Comm );
+   printf(" - Size of MPI_Comm is %d \n", (int) inmpiw_mpi_comm );
 
    inmpiw_mpi_datatype = sizeof( MPI_Datatype );
    printf(" - Size of MPI_Datatype is %d \n", (int) inmpiw_mpi_datatype );
