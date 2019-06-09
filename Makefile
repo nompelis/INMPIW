@@ -2,7 +2,7 @@ MPICC = mpicc
 COPTS = -fPIC -Wall -O0
 
 all:
-	$(MPICC) $(COPTS) -c inmpiw.c
+	$(MPICC) $(COPTS) -c inmpiw.c -D  _DEMO_
 	$(MPICC)             inmpiw.o
 
 q:
