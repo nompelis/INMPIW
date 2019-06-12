@@ -152,7 +152,7 @@ int main( int argc, char *argv[] )
    INMPIW_Comm comm,com2,com3;
    INMPIW_Info info;
    int rank,nrank;
-   char hname[256];
+   char hname[INMPIW_MAX_PROCESSOR_NAME];
    int hlen;
 
 

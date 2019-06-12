@@ -146,6 +146,10 @@ int write_header_file( char filename[] )
    fprintf(file,"\n\n");
 
 
+   fprintf( fp  , "#define    INMPIW_MAX_PROCESSOR_NAME   %d\n",
+                   MPI_MAX_PROCESSOR_NAME );
+   fprintf( file, "#define    INMPIW_MAX_PROCESSOR_NAME   %d\n",
+                   MPI_MAX_PROCESSOR_NAME );
    fprintf( fp  , "#define    INMPIW_STATUS_IGNORE        %s\n",
                    inmpiw_mpi_status_ignore );
    fprintf( file, "#define    INMPIW_STATUS_IGNORE        %s\n",
