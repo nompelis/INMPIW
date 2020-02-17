@@ -6,7 +6,7 @@ intrinsics and constants.
 This is the case when one wants to distribute a binary executable that relies
 on the MPI library, but the author cannot build (or does not want to build)
 the executable on the target system. This situation arises when the author
-does not wish to transfer the source code to the raget system. Compiling on
+does not wish to transfer the source code to the target system. Compiling on
 a similar installation of the target MPI library implementation may _not_
 work properly. For this reason, this wrapper exists.
 
